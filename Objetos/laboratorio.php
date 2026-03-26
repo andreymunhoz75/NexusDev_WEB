@@ -89,18 +89,16 @@ public function excluir($cnpj){
         return $stmt->fetchColumn() > 0;
     }
 
-    public function reativar(){
-        $sql = "UPDATE laboratorio SET Ativo_Lab = 1, Nome_Lab=:nome, Email_Lab=:email,
-                Telefone_Lab=:telefone, Cep_Lab=:cep, Num_Lab=:numerolab
-                WHERE CNPJ_Lab=:cnpj";
+    public function reativar($cnpj){
+        $sql = "UPDATE laboratorio SET Ativo_Lab = 1 WHERE CNPJ_Lab = :cnpj";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(":nome",      $this->nome,      PDO::PARAM_STR);
-        $stmt->bindParam(":email",     $this->email,     PDO::PARAM_STR);
-        $stmt->bindParam(":telefone",  $this->telefone,  PDO::PARAM_STR);
-        $stmt->bindParam(":cep",       $this->cep,       PDO::PARAM_STR);
-        $stmt->bindParam(":numerolab", $this->numerolab, PDO::PARAM_INT);
-        $stmt->bindParam(":cnpj",      $this->cnpj,      PDO::PARAM_STR);
-        return $stmt->execute();
+        $stmt->bindParam(":cnpj", $cnpj, PDO::PARAM_STR);
+
+        if($stmt->execute()){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function lerExcluidos(){

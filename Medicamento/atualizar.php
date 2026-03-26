@@ -5,10 +5,10 @@ $controller = new medicamentoController();
 $a = null;
 
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["alterar"])){
-    $a = $controller->localizarMedicamento($_GET["alterar"]); // ✅ busca o medicamento
+    $a = $controller->localizarMedicamento($_GET["alterar"]);
 
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["atualizar"])){
-    $controller->atualizarMedicamento($_POST["medicamento"]); // ✅ salva as alterações
+    $controller->atualizarMedicamento($_POST["medicamento"]);
 
 } else {
     header("location: index.php");

@@ -37,6 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
 <body>
 
 <h1>NexusDev</h1>
+<a href="../index.php">Voltar</a><br>
 <a href="cadastro.php">Cadastrar Medicamento</a>
 <h3>Pesquisar Medicamento</h3>
 <form method="POST" action="index.php">

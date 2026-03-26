@@ -5,10 +5,11 @@ $controller = new laboratorioController();
 
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["alterar"])){
     $a = $controller->localizarLaboratorio($_GET["alterar"]);
-} elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["alterar"])){
-    $a = $controller->localizarLaboratorio($_POST["alterar"]);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["atualizar"])){
+    $controller->atualizarLaboratorio($_POST["laboratorio"]);
 } else {
-    header("Location: cadastro.php");
+    header("Location: index.php");
+    exit();
 }
 
 ?>
@@ -24,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["alterar"])){
 <h1>Labortório</h1>
 <a href="index.php">Voltar</a>
 
-<form action="atualizar.php" method="post">  <!-- era <fomr> e "atulaizar" -->
+<form action="atualizar.php" method="post">
     <input type="hidden" name="laboratorio[CNPJ_Lab]" value="<?= $a["CNPJ_Lab"] ?>">
 
     <label>Nome</label>

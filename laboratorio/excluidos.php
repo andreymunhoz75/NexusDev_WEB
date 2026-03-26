@@ -2,12 +2,13 @@
 include_once ("../objetos/laboratorioController.php");
 
 $controller = new laboratorioController();
+$excluidos = $controller->excluidos();
+global $excluidos;
 
 if($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["reativar"])){
     $controller->reativarLaboratorio($_GET["reativar"]);
 }
 
-$excluidos = $controller->excluidos();
 ?>
 
 <!doctype html>

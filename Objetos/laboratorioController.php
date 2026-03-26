@@ -43,12 +43,12 @@ class laboratorioController{
     }
 
     public function atualizarLaboratorio($dados){
-        $this->laboratorio->nome = $dados['Nome_Lab'] ?? '';
-        $this->laboratorio->cnpj = $dados['CNPJ_Lab'] ?? '';
-        $this->laboratorio->telefone = $dados['Telefone_Lab'] ?? '';
-        $this->laboratorio->email = $dados['Email_Lab'] ?? '';
-        $this->laboratorio->numerolab = $dados['Num_Lab'] ?? 0;
-        $this->laboratorio->cep = $dados['Cep_Lab'] ?? '';
+        $this->laboratorio->cnpj      = $dados['CNPJ_Lab'] ?? '';
+        $this->laboratorio->nome      = $dados['Nome_Lab'] ?? '';
+        $this->laboratorio->email     = $dados['Email_Lab'] ?? '';
+        $this->laboratorio->telefone  = $dados['Telefone_Lab'] ?? '';
+        $this->laboratorio->cep       = $dados['Cep_Lab'] ?? '';
+        $this->laboratorio->numerolab = $dados['Num_Lab'] ?? '';
 
         if($this->laboratorio->atualizar()){
             header("location: index.php");
@@ -71,9 +71,8 @@ public function localizarLaboratorio($cnpj){
     }
 
     public function reativarLaboratorio($cnpj){
-        $this->laboratorio->cnpj = $cnpj;
-        if($this->laboratorio->reativar()){
-            header("location: excluidos.php");
+        if($this->laboratorio->reativar($cnpj)){
+            header("location: index.php");
             exit();
         }
     }
