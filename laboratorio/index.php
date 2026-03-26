@@ -35,7 +35,10 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
 <body>
 
 <h1>NexusDev</h1>
-<a href="cadastro.php">Cadastrar Laboratório</a>
+<a href="../index.php">Voltar</a><br>
+<a href="cadastro.php">Cadastrar Laboratório</a><br>
+<a href="excluidos.php">Ver Excluidos</a>
+
 <h3>Pesquisar Laboratório</h3>
 <form method="POST" action="index.php">
     <label>CNPJ</label>

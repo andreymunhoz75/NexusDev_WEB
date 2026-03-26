@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 <body>
 
 <h1>Compras</h1>
+<a href="../index.php">Voltar</a><br>
 
 <a href="cadastrarCompra.php">Cadastrar Compra</a>
 

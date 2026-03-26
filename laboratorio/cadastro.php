@@ -5,8 +5,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     if(isset($_POST["cadastrar"])){
         $a = $controller->cadastrarLaboratorio($_POST["laboratorio"]);
-    } else {
-        echo "oi";
     }
 }
 ?>

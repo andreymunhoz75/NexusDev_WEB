@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 <body>
 
 <h1>Vendas</h1>
-
+<a href="../index.php">Voltar</a><br>
 <a href="cadastro.php">Cadastrar Venda</a>
 
 <h3>Pesquisar Venda</h3>
