@@ -23,6 +23,38 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         exit();
     }
 }
+
+function diasParaVencer(string $dataVal): int {
+    $hoje = new DateTime('today');
+    $venc = new DateTime($dataVal);
+    $venc->setTime(0, 0, 0);
+    $diff = $hoje->diff($venc);
+    return (int)$diff->format('%r%a');
+}
+
+function obterBadgeValidade(string $dataVal): string {
+    $dias = diasParaVencer($dataVal);
+    $dataExibicao = (new DateTime($dataVal))->format('d/m/Y');
+    
+    if ($dias < 0) {
+        return '<span class="badge bg-danger">Vencido</span> ' . $dataExibicao;
+    } elseif ($dias <= 30) {
+        return '<span class="badge bg-danger">🔴 ' . $dias . ' dias</span> ' . $dataExibicao;
+    } elseif ($dias <= 90) {
+        return '<span class="badge bg-warning text-dark">🟡 ' . $dias . ' dias</span> ' . $dataExibicao;
+    } else {
+        return '<span class="badge bg-success">🟢</span> ' . $dataExibicao;
+    }
+}
+
+$criticos = 0;
+if ($medicamentos) {
+    foreach ($medicamentos as $med) {
+        if (diasParaVencer($med->DataVal_Med) <= 90) {
+            $criticos++;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -111,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 <td class="ps-4 fw-bold text-secondary">#<?= htmlspecialchars($a->Cod_Med) ?></td>
                 <td class="fw-bold"><?= htmlspecialchars($a->Nome_Med) ?></td>
                 <td><span class="badge bg-light text-dark border"><?= htmlspecialchars($a->Qtd_Med) ?> un.</span></td>
-                <td><?= htmlspecialchars($a->DataVal_Med) ?></td>
+                <td><?= obterBadgeValidade($a->DataVal_Med) ?></td>
                 <td class="fw-bold text-success">R$ <?= number_format($a->Valor_Med, 2, ',', '.') ?></td>
                 <td class="text-end pe-4">
                   <a href="atualizar.php?alterar=<?= $a->Cod_Med ?>" class="btn btn-sm btn-pharma-success me-1">✏ Editar</a>
@@ -128,11 +160,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     <!-- Indicadores -->
     <div class="row mb-4">
-      <div class="col-md-4">
-        <div class="card border-0 bg-white shadow-sm" style="border-left: 4px solid #1a1c4b !important;">
+      <div class="col-md-4 mb-3 mb-md-0">
+        <div class="card border-0 bg-white shadow-sm h-100" style="border-left: 4px solid #1a1c4b !important;">
           <div class="card-body">
             <h6 class="text-secondary mb-1">Total em Estoque</h6>
             <h2 class="fw-bold mb-0" style="color:#1a1c4b;"><?= $medicamentos ? count($medicamentos) : 0 ?></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 bg-white shadow-sm h-100" style="border-left: 4px solid #dc3545 !important;">
+          <div class="card-body">
+            <h6 class="text-secondary mb-1">Medicamentos Críticos (≤ 90 dias)</h6>
+            <h2 class="fw-bold mb-0" style="color:#dc3545;"><?= $criticos ?></h2>
           </div>
         </div>
       </div>
@@ -140,6 +180,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     <!-- Lista -->
     <h3 class="fw-bold mb-3" style="color:#1a1c4b;">Estoque Completo</h3>
+    <?php if ($criticos > 0): ?>
+    <div class="alert alert-warning shadow-sm border-0 mb-3" role="alert">
+      ⚠️ Atenção: Há <strong><?= $criticos ?></strong> <?= $criticos === 1 ? 'medicamento' : 'medicamentos' ?> com 90 dias ou menos para vencer (ou já vencidos).
+    </div>
+    <?php endif; ?>
     <div class="card card-pharma">
       <div class="card-body p-0">
         <?php if ($medicamentos): ?>
@@ -163,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 <td class="fw-bold"><?= htmlspecialchars($med->Nome_Med) ?></td>
                 <td class="text-secondary"><?= htmlspecialchars($med->Desc_Med) ?></td>
                 <td><span class="badge bg-light text-dark border"><?= htmlspecialchars($med->Qtd_Med) ?> un.</span></td>
-                <td><?= htmlspecialchars($med->DataVal_Med) ?></td>
+                <td><?= obterBadgeValidade($med->DataVal_Med) ?></td>
                 <td class="fw-bold text-success">R$ <?= number_format($med->Valor_Med, 2, ',', '.') ?></td>
                 <td class="text-end pe-4">
                   <a href="atualizar.php?alterar=<?= $med->Cod_Med ?>" class="btn btn-sm btn-pharma-success me-1">✏</a>
