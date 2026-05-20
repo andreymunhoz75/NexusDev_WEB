@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include_once "../configs/database.php";
 include_once "laboratorio.php";
 
@@ -47,7 +47,7 @@ class laboratorioController{
         $this->laboratorio->cnpj = $dados['cnpj'] ?? '';
         $this->laboratorio->telefone = $dados['telefone'] ?? '';
         $this->laboratorio->email = $dados['email'] ?? '';
-        $this->laboratorio->numerolab = $dados['num_lab'] ?? $dados['numerolab'] ?? 0;
+        $this->laboratorio->numerolab = (!empty($dados['num_lab']) ? (int)$dados['num_lab'] : 0);
         $this->laboratorio->cep = $dados['cep'] ?? '';
 
         if ($arquivos && isset($arquivos['Foto_Lab']) && $arquivos['Foto_Lab']['error'] === UPLOAD_ERR_OK) {
@@ -82,7 +82,7 @@ class laboratorioController{
         $this->laboratorio->email     = $dados['Email_Lab'] ?? '';
         $this->laboratorio->telefone  = $dados['Telefone_Lab'] ?? '';
         $this->laboratorio->cep       = $dados['Cep_Lab'] ?? '';
-        $this->laboratorio->numerolab = $dados['Num_Lab'] ?? '';
+        $this->laboratorio->numerolab = (!empty($dados['Num_Lab']) ? (int)$dados['Num_Lab'] : 0);
 
         if ($arquivos && isset($arquivos['Foto_Lab']) && $arquivos['Foto_Lab']['error'] === UPLOAD_ERR_OK) {
             $extensao = pathinfo($arquivos['Foto_Lab']['name'], PATHINFO_EXTENSION);

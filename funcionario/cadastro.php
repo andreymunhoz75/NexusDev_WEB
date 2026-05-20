@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include_once("../Objetos/funcionarioController.php");
 
 session_start();

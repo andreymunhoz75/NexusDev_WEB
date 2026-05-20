@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 Class laboratorio{
     public $numerolab;
     public $nome;
@@ -42,7 +42,20 @@ public function pesquisarLaboratorio($cnpj){
         $stmt->bindParam(":cnpj",      $this->cnpj,      PDO::PARAM_STR);
         $stmt->bindParam(":foto",      $this->foto,      PDO::PARAM_STR);
 
-        return $stmt->execute();
+        try {
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Check if it's a duplicate entry error (SQLSTATE 23000)
+            if ($e->getCode() == 23000) {
+                // If it's the email duplicate, we can trigger a JS alert and go back
+                if (strpos($e->getMessage(), 'Email_Lab') !== false) {
+                    echo "<script>alert('Erro: O e-mail informado já está em uso por outro laboratório.'); window.history.back();</script>";
+                    exit();
+                }
+            }
+            // For other errors, return false instead of crashing
+            return false;
+        }
     }
 
 public function excluir($cnpj){
@@ -82,7 +95,17 @@ public function excluir($cnpj){
             $stmt->bindParam(":foto",  $this->foto,      PDO::PARAM_STR);
         }
 
-        return $stmt->execute();
+        try {
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                if (strpos($e->getMessage(), 'Email_Lab') !== false) {
+                    echo "<script>alert('Erro: O e-mail informado já está em uso por outro laboratório.'); window.history.back();</script>";
+                    exit();
+                }
+            }
+            return false;
+        }
     }
 
     public function buscar($cnpj){

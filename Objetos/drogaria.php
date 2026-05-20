@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 Class drogaria{
     public $numerodrog;
     public $nome;

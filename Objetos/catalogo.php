@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class Catalogo {
     public $Cod_CatMed;

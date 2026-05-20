@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class ItemCompra {
     public $Cod_Item;
