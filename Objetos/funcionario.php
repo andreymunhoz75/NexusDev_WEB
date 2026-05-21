@@ -157,14 +157,25 @@ class Funcionario
             $stmt->bindParam(":cred", $login_cred, PDO::PARAM_STR);
         }
         
+        // Registro de tentativa de login (para depuração)
+        $logDir = __DIR__ . '/../logs';
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0777, true);
+        }
+        $logFile = $logDir . '/login_attempt.log';
+        $logEntry = date('Y-m-d H:i:s') . " - Login attempt: " . $login_cred . "\n";
+        file_put_contents($logFile, $logEntry, FILE_APPEND);
+
+        // Executa a query (já preparada acima)
         $stmt->execute();
 
         $resultado = $stmt->fetch(PDO::FETCH_OBJ);
 
         if ($resultado) {
             if (password_verify($this->senha, $resultado->Senha_Fun)) {
-                if (session_status() !== PHP_SESSION_ACTIVE)
+                if (session_status() !== PHP_SESSION_ACTIVE) {
                     session_start();
+                }
                 $_SESSION["login"] = $resultado;
                 $_SESSION["cpf"] = $resultado->CPF;
                 header("Location: " . $redirect);
