@@ -72,6 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $totalCompras = $compras ? count($compras) : 0;
+$valorTotalCompras = 0;
+if ($compras) {
+    foreach ($compras as $c) {
+        $valorTotalCompras += $c->Valor_Total ?? 0;
+    }
+}
 
 $sucessoCompra = $_SESSION['compra_sucesso'] ?? null;
 unset($_SESSION['compra_sucesso']);
@@ -240,12 +246,20 @@ unset($_SESSION['compra_sucesso']);
     </div>
 
     <!-- Indicadores -->
-    <div class="row mb-4">
+    <div class="row mb-4 g-3">
       <div class="col-md-4">
         <div class="card border-0 bg-white shadow-sm" style="border-left: 4px solid #1a1c4b !important;">
           <div class="card-body">
             <h6 class="text-secondary mb-1">Total de Compras no Sistema</h6>
             <h2 class="fw-bold mb-0" style="color:#1a1c4b;"><?= $totalCompras ?></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 bg-white shadow-sm" style="border-left: 4px solid #27ae60 !important;">
+          <div class="card-body">
+            <h6 class="text-secondary mb-1">Valor Total de Compras</h6>
+            <h2 class="fw-bold mb-0" style="color: #27ae60;">R$ <?= number_format($valorTotalCompras, 2, ',', '.') ?></h2>
           </div>
         </div>
       </div>

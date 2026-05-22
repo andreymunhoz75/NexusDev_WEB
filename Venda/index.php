@@ -74,6 +74,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 }
 
 $totalVendas = $vendas ? count($vendas) : 0;
+$valorTotalVendas = 0;
+if ($vendas) {
+    foreach ($vendas as $v) {
+        $valorTotalVendas += $v->Valor_Venda ?? 0;
+    }
+}
 
 $sucessoVenda = $_SESSION['venda_sucesso'] ?? null;
 unset($_SESSION['venda_sucesso']);
@@ -239,12 +245,20 @@ unset($_SESSION['venda_sucesso']);
     </div>
 
     <!-- Indicadores -->
-    <div class="row mb-4">
+    <div class="row mb-4 g-3">
       <div class="col-md-4">
         <div class="card border-0 bg-white shadow-sm" style="border-left: 4px solid #1a1c4b !important;">
           <div class="card-body">
             <h6 class="text-secondary mb-1">Total de Vendas no Sistema</h6>
             <h2 class="fw-bold mb-0" style="color: #1a1c4b;"><?= $totalVendas ?></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 bg-white shadow-sm" style="border-left: 4px solid #27ae60 !important;">
+          <div class="card-body">
+            <h6 class="text-secondary mb-1">Valor Total de Vendas</h6>
+            <h2 class="fw-bold mb-0" style="color: #27ae60;">R$ <?= number_format($valorTotalVendas, 2, ',', '.') ?></h2>
           </div>
         </div>
       </div>
