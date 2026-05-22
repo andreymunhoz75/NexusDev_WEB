@@ -279,8 +279,8 @@ unset($_SESSION['erro_compra']);
                       <td>
                         <form method="POST" class="d-flex align-items-center gap-1 mb-0 m-0" onclick="event.stopPropagation()">
                           <input type="hidden" name="cod_item" value="<?= $item->Cod_Item ?>">
-                          <input type="number" name="nova_qtd" class="form-control form-control-sm input-qtd-carrinho text-center fw-bold" style="width:70px;" min="1" max="<?= $item->quantidade ?>" value="<?= $item->Qtd_Item ?>">
-                          <button type="submit" name="atualizar_qtd" class="btn btn-sm btn-outline-secondary p-0 shadow-sm" style="width: 30px; height: 30px; border-radius: 6px;" title="Atualizar">↻</button>
+                          <input type="hidden" name="atualizar_qtd" value="1">
+                          <input type="number" name="nova_qtd" class="form-control form-control-sm input-qtd-carrinho text-center fw-bold" style="width:70px;" min="1" max="<?= $item->quantidade ?>" value="<?= $item->Qtd_Item ?>" onchange="this.form.submit()">
                         </form>
                       </td>
                       <td>R$ <span class="valor-unitario"><?= number_format($item->Valor_Item, 2, ',', '.') ?></span></td>

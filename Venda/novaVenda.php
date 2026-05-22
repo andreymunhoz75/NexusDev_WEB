@@ -335,8 +335,8 @@ unset($_SESSION['erro_venda_modal']);
                             <input type="number" name="nova_qtd" class="form-control form-control-sm text-center d-inline-block qtd-input" 
                                    style="width: 70px;" value="<?= htmlspecialchars($item->Qtd_ItemVenda) ?>" min="1" 
                                    data-valor="<?= $item->Valor_ItemVenda ?>" 
-                                   oninput="atualizarTotais()">
-                            <button type="submit" class="btn btn-sm btn-outline-primary p-0 shadow-sm" style="width: 32px; height: 32px;" title="Atualizar">↻</button>
+                                   oninput="atualizarTotais()"
+                                   onchange="this.form.submit()">
                           </form>
                         </td>
                         <td>R$ <?= number_format($item->Valor_ItemVenda, 2, ',', '.') ?></td>
