@@ -1,4 +1,4 @@
-# 💊 PharmaPulse - Sistema ERP & PDV para Distribuidora Farmacêutica
+# 💊 NexusDev - Sistema ERP & PDV para Distribuidora Farmacêutica
 
 > Sistema web integrado de gestão empresarial e ponto de venda desenvolvido para a **Distribuidora CFA**
 
@@ -26,7 +26,7 @@
 
 ## 🎯 Sobre o Projeto
 
-O **PharmaPulse** é uma solução completa de gestão empresarial (ERP) integrada a um sistema de Ponto de Venda (PDV) desenvolvida especificamente para atender às necessidades da **Distribuidora CFA**. O sistema gerencia todo o ciclo operacional da distribuidora, desde a aquisição de medicamentos junto aos laboratórios farmacêuticos até a comercialização para as drogarias parceiras.
+A **NexusDev** é uma solução completa de gestão empresarial (ERP) integrada a um sistema de Ponto de Venda (PDV) desenvolvida especificamente para atender às necessidades da **Distribuidora CFA**. O sistema gerencia todo o ciclo operacional da distribuidora, desde a aquisição de medicamentos junto aos laboratórios farmacêuticos até a comercialização para as drogarias parceiras.
 
 ### Objetivos
 
@@ -172,13 +172,13 @@ Antes de iniciar, certifique-se de ter instalado:
 
 #### 1. Clone ou baixe o repositório
 
-```bash
-git clone https://github.com/seu-usuario/PharmaPulse.git
+```bashPharmaPulse.git
+git clone https://github.com/andreymunhoz75/NexusDev_WEB
 ```
 
 Ou mova o projeto para o diretório do seu servidor web:
 ```
-C:\xampp\htdocs\PharmaPulse
+C:\xampp\htdocs\NexusDev_WEB
 ```
 
 #### 2. Configure o Banco de Dados
@@ -186,13 +186,13 @@ C:\xampp\htdocs\PharmaPulse
 Crie um banco de dados MySQL:
 
 ```sql
-CREATE DATABASE pharmapulse CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE drogariaWEB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 Importe o schema do banco de dados (script SQL normalmente disponível em `/configs/database.sql`):
 
 ```bash
-mysql -u root -p pharmapulse < configs/database.sql
+mysql -u root -p drogariaWEB < configs/database.sql
 ```
 
 #### 3. Configure as Credenciais
@@ -205,7 +205,7 @@ Edite o arquivo de configuração do banco de dados:
 <?php
 // Configurações do Banco de Dados
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'pharmapulse');
+define('DB_NAME', 'drogariaWEB');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
@@ -231,8 +231,8 @@ try {
 #### 4. Configure Permissões (Linux/Mac)
 
 ```bash
-chmod -R 755 /var/www/html/PharmaPulse
-chmod -R 777 /var/www/html/PharmaPulse/uploads
+chmod -R 755 /var/www/html/NexusDev_WEB
+chmod -R 777 /var/www/html/NexusDev_WEB/uploads
 ```
 
 #### 5. Acesse o Sistema
@@ -240,12 +240,12 @@ chmod -R 777 /var/www/html/PharmaPulse/uploads
 Abra seu navegador e acesse:
 
 ```
-http://localhost/PharmaPulse/login.php
+http://localhost/NexusDev_WEB/login.php
 ```
 
 **Credenciais padrão:**
-- **Usuário:** `admin`
-- **Senha:** `admin123`
+- **Usuário:** `Nexus ADM`
+- **Senha:** `@Nexus123`
 
 > ⚠️ **Importante:** Altere a senha padrão após o primeiro acesso!
 
@@ -349,7 +349,7 @@ PharmaPulse/
 
 ### Princípios de Design
 
-O PharmaPulse foi desenvolvido seguindo princípios modernos de UI/UX:
+O NexusDev_WEB foi desenvolvido seguindo princípios modernos de UI/UX:
 
 #### 🎨 Design System
 - **Paleta de Cores:** Tons de azul profissional e neutros para uso prolongado
@@ -386,14 +386,14 @@ Crie um arquivo `.env` na raiz do projeto (não incluído no repositório):
 ```env
 # Database
 DB_HOST=localhost
-DB_NAME=pharmapulse
+DB_NAME=drogaWEB
 DB_USER=root
 DB_PASS=
 
 # Application
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=http://localhost/PharmaPulse
+APP_URL=http://localhost/NexusDev_WEB.php
 
 # Security
 SESSION_LIFETIME=3600
@@ -406,19 +406,18 @@ ALLOWED_EXTENSIONS=jpg,jpeg,png,pdf
 # Email (para notificações)
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
-MAIL_USERNAME=seu-email@gmail.com
-MAIL_PASSWORD=sua-senha
+MAIL_USERNAME=nexusweb@gmail.com
+MAIL_PASSWORD=
 ```
 
 ### Permissões de Usuário
 
-O sistema possui 3 níveis de permissão:
+O sistema possui 2 níveis de permissão:
 
 | Nível | Permissões |
 |-------|------------|
 | **Administrador** | Acesso completo a todos os módulos |
-| **Gerente** | Acesso a vendas, compras, relatórios (sem configurações) |
-| **Operador** | Acesso apenas ao PDV e consultas |
+| **Usuário** | Acesso apenas ao PDV e consultas |
 
 ### Backup do Banco de Dados
 
@@ -426,7 +425,7 @@ Automatize backups diários:
 
 ```bash
 #!/bin/bash
-mysqldump -u root -p pharmapulse > backup_$(date +%Y%m%d).sql
+mysqldump -u root -p drogariaWEB > backup_$(date +%Y%m%d).sql
 ```
 
 ---
